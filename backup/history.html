@@ -1,0 +1,37 @@
+<body>
+
+<h1>Forex Exchange Rate By Date</h1>
+<div> {{error}}</div>
+
+<label> Select Currency</label><br>
+<select  ng-change="search(base)" ng-model="base" ng-init="base = bases[0]" ng-options="act for act in bases">
+</select><br>
+
+<label> Select Date</label><br>
+<input type="date" ng-change="search(date)" ng-model="date">
+
+<h2>
+    Base : {{money.base}}
+</h2>
+<h2>
+    Date : {{money.date}}
+</h2>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key,val) in money.rates">
+            <td>{{key}}</td>
+            <td>{{val}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>

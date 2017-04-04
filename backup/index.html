@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MoneyApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body ng-controller="MainController">
+<div ng-view></div>
+<a href="#/history">History</a>
+<h1>{{message}}</h1>
+<div> {{error}}</div>
+
+<!--
+<form name="searchBase">
+    <input type="search" placeholder="Base to Find" ng-model="base" />
+    <input type="submit" value="search" ng-click="search(base)"/>
+</form>
+-->
+
+
+<label> Select Currency</label><br>
+<select data-ng-change="search(base)" ng-model="fromType" ng-init="base = bases[1]" ng-options="act for act in bases">
+</select><br>
+
+<h2>
+    Base : {{money.base}}
+</h2>
+<h2>
+    Date : {{money.date}}
+</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Currency</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(key,val) in money.rates">
+        <td>{{key}}</td>
+        <td>{{val}}</td>
+    </tr>
+    </tbody>
+</table>
+
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
