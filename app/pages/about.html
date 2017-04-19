@@ -1,39 +1,49 @@
-<body>
-<h1>{{message}}</h1>
-<div> {{error}}</div>
+<div class="row">
+<div class="col-xs-5 col-sm-5 col-md-5 col-md-offset-3">
+    <legend>Forex Exchange Rate</legend>
+    <div> {{error}}</div>
 
-<!--
-<form name="searchBase">
-    <input type="search" placeholder="Base to Find" ng-model="base" />
-    <input type="submit" value="search" ng-click="search(base)"/>
-</form>
--->
+    <!--
+    <form name="searchBase">
+        <input type="search" placeholder="Base to Find" ng-model="base" />
+        <input type="submit" value="search" ng-click="search(base)"/>
+    </form>
+    -->
 
 
-<label> Select Currency</label><br>
-<select data-ng-change="search(base)" ng-model="base" ng-init="base = bases[0]" ng-options="act for act in bases">
-</select><br>
 
-<h2>
-    Base : {{money.base}}
-</h2>
-<h2>
-    Date : {{money.date}}
-</h2>
+    <div class="col-md-5" >
+        <label> Select Currency</label><br>
+        <select  class="form-control"  data-ng-change="search(base)" ng-model="base"  ng-init="base = bases[0]" ng-options="act for act in bases">
+        </select><br/>
+        <h5>
+            Base : {{money.base}}
+        </h5>
+        <h5>
+            Date : {{money.date}}
+        </h5><br/>
 
-<table>
-    <thead>
-    <tr>
-        <th>Currency</th>
-        <th>Value</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="(key,val) in money.rates">
-        <td>{{key}}</td>
-        <td>{{val}}</td>
-    </tr>
-    </tbody>
-</table>
+    </div><br/>
 
-</body>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+
+    </div>
+
+
+    <table class="table table bordered">
+        <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key,val) in money.rates">
+            <td>{{key}}</td>
+            <td>{{val}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>

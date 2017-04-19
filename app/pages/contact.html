@@ -1,24 +1,38 @@
-<body class="jumbotron text-center">
+<div class="row">
+    <script type="text/javascript" defer>
+        window.onload = function () {
+            document.getElementById('datePicker').valueAsDate = new Date();
+        }
+    </script>
+<div class="col-xs-5 col-sm-5 col-md-5 col-md-offset-3">
 
-<h1>Forex Exchange Rate By Date</h1>
+<legend>Forex Exchange Rate By Date</legend>
 <div> {{error}}</div>
+    <!--<div class="col-md-12">-->
 
-<label> Select Currency</label><br>
-<select  ng-change="search(base)" ng-model="base" ng-init="base = bases[0]" ng-options="act for act in bases">
-</select><br>
+        <div class="col-md-5">
+            <label> Select Currency</label><br/>
+            <select class="form-control" ng-change="search(date, base)" ng-model="base" ng-init="base = bases[0]"
+                    ng-options="act for act in bases">
+            </select>
+            <br/>
+            <h5>
+                Base : {{money.base}}
+            </h5>
+            <h5>
+                Date : {{money.date}}
+            </h5><br/>
+        </div>
 
-<label> Select Date</label><br>
-<input type="date" ng-change="search(date)" ng-model="date">
+        <div class="col-md-4" style="float: right">
+            <label> Select Date</label><br>
+            <input  class="form-control" type="date" id="datePicker" ng-change="search(date, base)" ng-model="date">
+        </div>
 
-<h2>
-    Base : {{money.base}}
-</h2>
-<h2>
-    Date : {{money.date}}
-</h2>
+    <!--</div>-->
 
-<div>
-    <table>
+    <div>
+    <table class="table table bordered">
         <thead>
         <tr>
             <th>Currency</th>
@@ -34,4 +48,5 @@
     </table>
 </div>
 
-</body>
+</div>
+</div>

@@ -1,10 +1,9 @@
 // create the module and name it scotchApp
-
-
 var MoneyApp = angular.module('MoneyApp', ['ngRoute']);
 
 // configure our routes
 /*
+
 MoneyApp.controller('aboutController',
     function MainController($scope, $http) {
 
@@ -30,7 +29,11 @@ MoneyApp.controller('aboutController',
             $http.get(`http://api.fixer.io/latest?base=${base}`)
                 .then(onUserComplete, onError);
         };
-    });*/
+
+        $scope.message = 'Forex Exchange Rate'
+
+    });
+*/
 
 
 MoneyApp.controller('contactController',
@@ -44,47 +47,23 @@ MoneyApp.controller('contactController',
             $scope.error = 'Could not fetch the data';
         };
 
-        $scope.bases =
-            [
-                "USD",
-                "EUR",
-                "INR",
-                "GBP"
-            ];
 
-        const TodayDate = $filter('date')(new Date(), "yyyy-MM-dd");
-
-        $http.get(`http://api.fixer.io/${TodayDate}?base=USD`)
-            .then(function (res) {
-                $scope.money = res.data;
-            });
-
-        $scope.search  = function (date, base) {
-            if(base == undefined) {
-                base = 'USD';
-            }
-            if(date == undefined) {
-                date =  TodayDate;
-            }
-            const formattedDate =   $filter('date')(date, "yyyy-MM-dd");
-            $http.get(`http://api.fixer.io/${formattedDate}?base=${base}`)
+        $scope.search  = function (date) {
+            var formattedDate =   $filter('date')(date, "yyyy-MM-dd");
+            $http.get(`http://api.fixer.io/${formattedDate}?base=USD`)
                 .then(onUserComplete, onError);
         };
+
+        $scope.base = 'EUR';
+
+        $scope.message = 'Forex Exchange Rate'
+
     });
 
 
 
 MoneyApp.controller('aboutController',
     function MainController($scope, $http) {
-
-        var onUserComplete = function (response) {
-            $scope.money = response.data;
-        };
-
-        var onError = function (reson) {
-            $scope.error = 'Could not fetch the data';
-        };
-
         $scope.bases =
             [
                 "USD",
@@ -93,14 +72,16 @@ MoneyApp.controller('aboutController',
                 "GBP"
             ];
 
-        $http.get(`http://api.fixer.io/latest?base=USD`)
-            .then(function (res) {
-                $scope.money = res.data;
-            });
         $scope.search  = function (base) {
             $http.get(`http://api.fixer.io/latest?base=${base}`)
-                .then(onUserComplete, onError);
+                .then(function(res) {
+                    $scope.rates = res.data.rates;
+                    $scope.toType = $scope.rates.INR;
+                });
         };
+
+        $scope.message = 'Forex Exchange Rate'
+
     });
 
 
