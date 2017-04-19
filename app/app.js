@@ -1,39 +1,6 @@
-// create the module and name it scotchApp
-
-
 var MoneyApp = angular.module('MoneyApp', ['ngRoute']);
 
-// configure our routes
-/*
-MoneyApp.controller('aboutController',
-    function MainController($scope, $http) {
-
-        var onUserComplete = function (response) {
-         $scope.money = response.data;
-         };
-
-        var onError = function (reson) {
-         $scope.error = 'Could not fetch the data';
-         };
-
-        // $scope.base = 'USD';
-
-        $scope.bases =
-            [
-                "USD",
-                "EUR",
-                "INR",
-                "GBP"
-            ];
-
-        $scope.search  = function (base) {
-            $http.get(`http://api.fixer.io/latest?base=${base}`)
-                .then(onUserComplete, onError);
-        };
-    });*/
-
-
-MoneyApp.controller('contactController',
+MoneyApp.controller('historyController',
     function MainController($scope, $http, $filter) {
 
         var onUserComplete = function (response) {
@@ -59,22 +26,20 @@ MoneyApp.controller('contactController',
                 $scope.money = res.data;
             });
 
-        $scope.search  = function (date, base) {
-            if(base == undefined) {
+        $scope.search = function (date, base) {
+            if (base == undefined) {
                 base = 'USD';
             }
-            if(date == undefined) {
-                date =  TodayDate;
+            if (date == undefined) {
+                date = TodayDate;
             }
-            const formattedDate =   $filter('date')(date, "yyyy-MM-dd");
+            const formattedDate = $filter('date')(date, "yyyy-MM-dd");
             $http.get(`http://api.fixer.io/${formattedDate}?base=${base}`)
                 .then(onUserComplete, onError);
         };
     });
 
-
-
-MoneyApp.controller('aboutController',
+MoneyApp.controller('rateController',
     function MainController($scope, $http) {
 
         var onUserComplete = function (response) {
@@ -97,49 +62,53 @@ MoneyApp.controller('aboutController',
             .then(function (res) {
                 $scope.money = res.data;
             });
-        $scope.search  = function (base) {
+        $scope.search = function (base) {
             $http.get(`http://api.fixer.io/latest?base=${base}`)
                 .then(onUserComplete, onError);
         };
     });
 
 
-MoneyApp.controller('ConvertCtrl', ['$scope', '$http', function($scope, $http) {
+MoneyApp.controller('ConvertCtrl',
+    function MainController($scope, $http) {
         var base = this;
         $scope.rates = {};
         $http.get('http://api.fixer.io/latest?base=ZAR')
-            .then(function(res) {
+            .then(function (res) {
                 $scope.rates = res.data.rates;
-                $scope.toType = $scope.rates.INR;
                 $scope.fromType = $scope.rates.USD;
+                $scope.toType = $scope.rates.INR;
                 $scope.fromValue = 1;
                 $scope.forExConvert();
             });
-        $scope.forExConvert = function() {
+        $scope.forExConvert = function () {
             $scope.toValue = $scope.fromValue * ($scope.toType * (1 / $scope.fromType));
         };
-    }]);
+    });
 
 
-
-MoneyApp.config(function($routeProvider) {
+MoneyApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
-
-    // route for the home page
         .when('/', {
-            templateUrl : 'pages/home.html',
-            controller  : 'ConvertCtrl'
+            templateUrl: 'pages/home.html',
+            controller: 'ConvertCtrl'
         })
 
-        // route for the about page
-        .when('/about', {
-            templateUrl : 'pages/about.html',
-            controller  : 'aboutController'
+        .when('/rates', {
+            templateUrl: 'pages/Rates.html',
+            controller: 'rateController'
         })
 
-        // route for the contact page
-        .when('/contact', {
-            templateUrl : 'pages/contact.html',
-            controller  : 'contactController'
+        .when('/history', {
+            templateUrl: 'pages/history.html',
+            controller: 'historyController'
+        })
+        .otherwise({
+            redirectTo: '/'
         });
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
 });

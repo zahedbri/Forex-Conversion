@@ -4,12 +4,10 @@
             document.getElementById('datePicker').valueAsDate = new Date();
         }
     </script>
-<div class="col-xs-5 col-sm-5 col-md-5 col-md-offset-3">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-md-offset-3">
 
-<legend>Forex Exchange Rate By Date</legend>
-<div> {{error}}</div>
-    <!--<div class="col-md-12">-->
-
+        <legend>Forex Exchange Rate By Date</legend>
+        <div> {{error}}</div>
         <div class="col-md-5">
             <label> Select Currency</label><br/>
             <select class="form-control" ng-change="search(date, base)" ng-model="base" ng-init="base = bases[0]"
@@ -26,27 +24,24 @@
 
         <div class="col-md-4" style="float: right">
             <label> Select Date</label><br>
-            <input  class="form-control" type="date" id="datePicker" ng-change="search(date, base)" ng-model="date">
+            <input class="form-control" type="date" id="datePicker" ng-change="search(date, base)" ng-model="date">
         </div>
 
-    <!--</div>-->
-
-    <div>
-    <table class="table table bordered">
-        <thead>
-        <tr>
-            <th>Currency</th>
-            <th>Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="(key,val) in money.rates">
-            <td>{{key}}</td>
-            <td>{{val}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-</div>
+        <div>
+            <table class="table table bordered">
+                <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key,val) in money.rates">
+                    <td>{{key}}</td>
+                    <td>{{val}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
