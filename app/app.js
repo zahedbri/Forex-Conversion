@@ -2,22 +2,7 @@ var MoneyApp = angular.module('MoneyApp', ['ngRoute']);
 
 MoneyApp.controller('historyController',
     function MainController($scope, $http, $filter) {
-
-        var onUserComplete = function (response) {
-            $scope.money = response.data;
-        };
-
-        var onError = function (reson) {
-            $scope.error = 'Could not fetch the data';
-        };
-
-        $scope.bases =
-            [
-                "USD",
-                "EUR",
-                "INR",
-                "GBP"
-            ];
+        $scope.bases = ["USD", "EUR", "INR", "GBP"];
 
         const TodayDate = $filter('date')(new Date(), "yyyy-MM-dd");
 
@@ -35,28 +20,15 @@ MoneyApp.controller('historyController',
             }
             const formattedDate = $filter('date')(date, "yyyy-MM-dd");
             $http.get(`http://api.fixer.io/${formattedDate}?base=${base}`)
-                .then(onUserComplete, onError);
+                .then(function (res) {
+                    $scope.money = res.data;
+                });
         };
     });
 
 MoneyApp.controller('rateController',
     function MainController($scope, $http) {
-
-        var onUserComplete = function (response) {
-            $scope.money = response.data;
-        };
-
-        var onError = function (reson) {
-            $scope.error = 'Could not fetch the data';
-        };
-
-        $scope.bases =
-            [
-                "USD",
-                "EUR",
-                "INR",
-                "GBP"
-            ];
+        $scope.bases = ["USD", "EUR", "INR", "GBP"];
 
         $http.get(`http://api.fixer.io/latest?base=USD`)
             .then(function (res) {
@@ -64,7 +36,9 @@ MoneyApp.controller('rateController',
             });
         $scope.search = function (base) {
             $http.get(`http://api.fixer.io/latest?base=${base}`)
-                .then(onUserComplete, onError);
+                .then(function (res) {
+                    $scope.money = res.data;
+                });
         };
     });
 
