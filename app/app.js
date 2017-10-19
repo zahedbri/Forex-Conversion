@@ -6,7 +6,7 @@ MoneyApp.controller('historyController',
 
         const TodayDate = $filter('date')(new Date(), "yyyy-MM-dd");
 
-        $http.get(`http://api.fixer.io/${TodayDate}?base=USD`)
+        $http.get(`https://api.fixer.io/${TodayDate}?base=USD`)
             .then(function (res) {
                 $scope.money = res.data;
             });
@@ -19,7 +19,7 @@ MoneyApp.controller('historyController',
                 date = TodayDate;
             }
             const formattedDate = $filter('date')(date, "yyyy-MM-dd");
-            $http.get(`http://api.fixer.io/${formattedDate}?base=${base}`)
+            $http.get(`https://api.fixer.io/${formattedDate}?base=${base}`)
                 .then(function (res) {
                     $scope.money = res.data;
                 });
@@ -30,12 +30,12 @@ MoneyApp.controller('rateController',
     function MainController($scope, $http) {
         $scope.bases = ["USD", "EUR", "INR", "GBP"];
 
-        $http.get(`http://api.fixer.io/latest?base=USD`)
+        $http.get(`https://api.fixer.io/latest?base=USD`)
             .then(function (res) {
                 $scope.money = res.data;
             });
         $scope.search = function (base) {
-            $http.get(`http://api.fixer.io/latest?base=${base}`)
+            $http.get(`https://api.fixer.io/latest?base=${base}`)
                 .then(function (res) {
                     $scope.money = res.data;
                 });
