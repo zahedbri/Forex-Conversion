@@ -47,7 +47,7 @@ MoneyApp.controller('ConvertCtrl',
     function MainController($scope, $http) {
         var base = this;
         $scope.rates = {};
-        $http.get('http://api.fixer.io/latest?base=ZAR')
+        $http.get('https://api.fixer.io/latest?base=ZAR')
             .then(function (res) {
                 $scope.rates = res.data.rates;
                 $scope.fromType = $scope.rates.USD;
