@@ -6,7 +6,7 @@ MoneyApp.controller('historyController',
 
         const TodayDate = $filter('date')(new Date(), "yyyy-MM-dd");
 
-        $http.get(`https://data.fixer.io/api/${TodayDate}?base=USD?access_key=4931be0b39c382bbaec9e0b8fd46ef59`)
+        $http.get(`http://data.fixer.io/api/${TodayDate}?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=USD`)
             .then(function (res) {
                 $scope.money = res.data;
             });
@@ -19,7 +19,7 @@ MoneyApp.controller('historyController',
                 date = TodayDate;
             }
             const formattedDate = $filter('date')(date, "yyyy-MM-dd");
-            $http.get(`https://data.fixer.io/api/${formattedDate}?base=${base}?access_key=4931be0b39c382bbaec9e0b8fd46ef59`)
+            $http.get(`http://data.fixer.io/api/${formattedDate}?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=${base}`)
                 .then(function (res) {
                     $scope.money = res.data;
                 });
@@ -30,12 +30,12 @@ MoneyApp.controller('rateController',
     function MainController($scope, $http) {
         $scope.bases = ["USD", "EUR", "INR", "GBP"];
 
-        $http.get(`https://data.fixer.io/api/latest?base=USD?access_key=4931be0b39c382bbaec9e0b8fd46ef59`)
+        $http.get(`http://data.fixer.io/api/latest?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=USD`)
             .then(function (res) {
                 $scope.money = res.data;
             });
         $scope.search = function (base) {
-            $http.get(`https://data.fixer.io/api/latest?base=${base}?access_key=4931be0b39c382bbaec9e0b8fd46ef59`)
+            $http.get(`http://data.fixer.io/api/latest?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=${base}`)
                 .then(function (res) {
                     $scope.money = res.data;
                 });
@@ -47,7 +47,7 @@ MoneyApp.controller('ConvertCtrl',
     function MainController($scope, $http) {
         var base = this;
         $scope.rates = {};
-        $http.get('https://data.fixer.io/api/latest?base=ZAR?access_key=4931be0b39c382bbaec9e0b8fd46ef59')
+        $http.get('http://data.fixer.io/api/latest?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=ZAR')
             .then(function (res) {
                 $scope.rates = res.data.rates;
                 $scope.fromType = $scope.rates.USD;
