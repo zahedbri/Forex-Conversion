@@ -6,7 +6,7 @@ MoneyApp.controller('historyController',
 
         const TodayDate = $filter('date')(new Date(), "yyyy-MM-dd");
 
-        $http.get(`http://data.fixer.io/api/${TodayDate}?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=USD`)
+        $http.get(`https://forex-api-self.herokuapp.com/api/${TodayDate}`)
             .then(function (res) {
                 $scope.money = res.data;
             });
@@ -19,7 +19,7 @@ MoneyApp.controller('historyController',
                 date = TodayDate;
             }
             const formattedDate = $filter('date')(date, "yyyy-MM-dd");
-            $http.get(`http://data.fixer.io/api/${formattedDate}?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=${base}`)
+            $http.get(`https://forex-api-self.herokuapp.com/api/${formattedDate}`)
                 .then(function (res) {
                     $scope.money = res.data;
                 });
@@ -30,12 +30,12 @@ MoneyApp.controller('rateController',
     function MainController($scope, $http) {
         $scope.bases = ["USD", "EUR", "INR", "GBP"];
 
-        $http.get(`http://data.fixer.io/api/latest?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=USD`)
+        $http.get(`https://forex-api-self.herokuapp.com/api/latest?base=USD`)
             .then(function (res) {
                 $scope.money = res.data;
             });
         $scope.search = function (base) {
-            $http.get(`http://data.fixer.io/api/latest?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=${base}`)
+            $http.get(`https://forex-api-self.herokuapp.com/api/latest?base=${base}`)
                 .then(function (res) {
                     $scope.money = res.data;
                 });
@@ -47,7 +47,7 @@ MoneyApp.controller('ConvertCtrl',
     function MainController($scope, $http) {
         var base = this;
         $scope.rates = {};
-        $http.get('http://data.fixer.io/api/latest?access_key=4931be0b39c382bbaec9e0b8fd46ef59?base=ZAR')
+        $http.get('https://forex-api-self.herokuapp.com/api/latest?base=ZAR')
             .then(function (res) {
                 $scope.rates = res.data.rates;
                 $scope.fromType = $scope.rates.USD;
