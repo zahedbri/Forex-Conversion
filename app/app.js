@@ -2,7 +2,7 @@ var MoneyApp = angular.module('MoneyApp', ['ngRoute']);
 
 MoneyApp.controller('historyController',
     function MainController($scope, $http, $filter) {
-        $scope.bases = ["USD", "EUR", "INR", "GBP"];
+        $scope.bases = ["USD", "EUR", "INR", "GBP", "BDT"];
 
         const TodayDate = $filter('date')(new Date(), "yyyy-MM-dd");
 
@@ -28,7 +28,7 @@ MoneyApp.controller('historyController',
 
 MoneyApp.controller('rateController',
     function MainController($scope, $http) {
-        $scope.bases = ["USD", "EUR", "INR", "GBP"];
+        $scope.bases = ["USD", "EUR", "INR", "GBP","BDT"];
 
         $http.get(`https://forex-api-self.herokuapp.com/api/latest?base=USD`)
             .then(function (res) {
